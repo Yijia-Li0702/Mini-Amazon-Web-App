@@ -1,5 +1,5 @@
 .vscode/
 .DS_Store
 */.classpath
-*/.project
-*/.settings
+.project
+.settings
