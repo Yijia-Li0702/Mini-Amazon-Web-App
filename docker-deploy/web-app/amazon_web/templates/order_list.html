@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% block content %}
+  <!-- <body > -->
+    <div class="container" class="bg-light">
+        <main>
+            <div class="row g-5">
+                <div class="col-md-5 col-lg-4 order-md-last">
+                  <h4 class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="text-primary"> Order List </span>
+                    <!-- <span class="badge bg-primary rounded-pill"> </span> -->
+                  </h4>
+                  {% for order in orders %}
+                  <ul class="list-group mb-3">
+                   
+                    <!-- <li class="list-group-item d-flex justify-content-between lh-sm list-group-item-dark">
+                        <div>
+                          <h6 class="my-0">order owner</h6>
+                         
+                        </div>
+                        <span class="text-muted">{{order.owner}}</span>
+                    </li> -->
+                    <li class="list-group-item d-flex justify-content-between lh-sm lh-sm list-group-item-dark">
+                      <div>
+                        <h6 class="my-0">Product name</h6>
+                        <!-- <small class="text-muted">{{product.name}}</small> -->
+                      </div>
+                      <span class="text-muted">{{order.product.name}}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between lh-sm">
+                        <div>
+                          <h6 class="my-0">order id</h6>
+                          <!-- <small class="text-muted">{{product.name}}</small> -->
+                        </div>
+                        <span class="text-muted">{{order.packege_id}}</span>
+                      </li>
+                    <li class="list-group-item d-flex justify-content-between lh-sm">
+                      <div>
+                        <h6 class="my-0">Brief description</h6>
+                        <!-- <small class="text-muted"> {{product.description}}</small> -->
+                        <small class="text-muted"> {{order.product.description}}</small>
+                      </div>
+                      <!-- <span class="text-muted">{{order.product.description}}</span> -->
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between lh-sm">
+                        <div>
+                          <h6 class="my-0">Order status</h6>
+                          <!-- <small class="text-muted"> {{product.description}}</small> -->
+                        </div>
+                        <span class="text-muted">{{order.status}}</span>
+                      </li>
+                    <li class="list-group-item d-flex justify-content-between lh-sm">
+                      <div>
+                        <h6 class="my-0">amounts</h6>
+                        <!-- <small class="text-muted">{{product.amounts}}</small> -->
+                      </div>
+                      <span class="text-muted">{{order.amounts}}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between lh-sm">
+                        <div>
+                          <h6 class="my-0">Price</h6>
+                          <!-- <small class="text-muted"></small> -->
+                        </div>
+                        <span class="text-muted">${{order.price}}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between lh-sm">
+                        <div>
+                          <h6 class="my-0">destination</h6>
+                          <!-- <small class="text-muted"></small> -->
+                        </div>
+                        <span class="text-muted">({{order.destination_x}},{{order.destination_y}})</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between lh-sm">
+                        <div>
+                          <h6 class="my-0">Ups account</h6>
+                          <!-- <small class="text-muted"></small> -->
+                        </div>
+                        <span class="text-muted">{{order.ups}}</span>
+                    </li>
+                   
+
+                  </ul>
+                  {% endfor %}
+                <a href="{% url 'listAllProducts'%}" class="btn btn-secondary my-2">Go Back to Homepage</a>
+
+                </div>
+                <a href="{% url 'listAllProducts'%}" class="btn btn-secondary my-2">Go Back to Homepage</a>
+        </main>
+
+    </div>
+
+
+    <script src="/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+
+    <script src="form-validation.js"></script>
+  {% endblock content %}
+
+
+
+<!-- 
+<h1>All your orders</h1>
+{% for order in orders %}
+    <div>
+        <ul>
+            <li>order id: {{order.packege_id}}</li>
+            <li>Name: {{order.product.name}}</li>
+            <li>order status: {{order.status}}</li>
+            <li>Amounts: {{order.amounts}}</li>
+            <li>Price: {{order.price}}</li>
+            <li>destination:({{order.destination_x}},{{order.destination_y}})</li>
+            <li>ups_account: {{order.ups}}</li>
+        </ul>
+    </div>
+{% endfor %}
+
+<a href="{% url 'listAllProducts'%}">BUY MORE</a> -->

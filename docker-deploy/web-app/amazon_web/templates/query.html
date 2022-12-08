@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+<div class="py-5 text-center">
+    <h2>Query an order</h2>
+</div>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+
+{% endif %}
+<div class="col-md-7 col-lg-8">
+<form action="{% url 'query' %}" method="post">
+    {% csrf_token %}
+    <div class="row g-3">
+        <div class="col-sm-6">
+          <label class="form-label" >Order id</label>
+          <input type="number" name="packege_id" class="form-control" required>
+        </div>
+    </div>
+    <hr class="my-4">
+    <button name="action" >query</button>
+    <!-- <ul class="list-group mb-3">
+        <li class="list-group-item d-flex justify-content-between lh-sm list-group-item-dark">
+            <div>
+              <h6 class="my-0">Order id</h6>
+            </div>
+            <input type="number" name="packege_id" class="form-control">
+        </li>
+        <button name="action">query</button>
+    </ul> -->
+
+</form>
+</div>
+
+<a href="{% url 'listAllProducts'%}" class="btn btn-secondary my-2">Go Back to Homepage</a>
+</div>
+
+
+{% endblock content %}

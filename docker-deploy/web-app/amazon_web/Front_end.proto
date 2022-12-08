@@ -1,0 +1,21 @@
+syntax = "proto2";
+
+message Fpurchase {
+    required int64 packege_id = 1;
+}
+
+message Fcancel {
+    required int64 packege_id = 1;
+}
+
+message Fchange_dest {
+    required int64 packege_id = 1;
+    required int32 new_x = 2;
+    required int32 new_y = 3;
+}
+
+message FECommands {
+    optional Fpurchase purchase = 1;
+    optional Fcancel cancel = 2;
+    optional Fchange_dest change = 3;
+}

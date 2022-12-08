@@ -1,0 +1,51 @@
+version: '2'
+
+services:
+  db:
+      image: postgres
+      environment:
+        POSTGRES_DB: postgres
+        POSTGRES_PASSWORD: postgres
+        POSTGRES_USER: postgres
+      restart: always
+      volumes:
+            - data-volume:/var/lib/postgresql/data
+      ports:
+        - "5432:5432"
+
+  web-init:
+      build: ./web-app
+      command: /code/initserver.sh
+      volumes:
+        - ./web-app:/code
+      depends_on:
+        - db
+  web:
+      build: ./web-app
+      user: nobody
+      command: /code/runserver.sh
+      volumes:
+        - ./web-app:/code
+      expose:
+        - "8000"
+      depends_on:
+        - web-init
+  nginx:
+      image: nginx:latest
+      ports:
+        - "8000:8000"
+      volumes:
+        - ./nginx/config:/etc/nginx/conf.d
+      depends_on:
+        - web
+  # daemon should run after the front-end has setted up(since we need the data from it, e.g. warehouse)
+  amazon:
+      build: ./amazon
+      command: bash -c "mvn compile exec:java -Dexec.mainClass=server.App"
+      ports:
+        - "11111:11111" # port for web
+        - "22222:22222"
+      depends_on:
+        - web
+volumes:
+   data-volume: 

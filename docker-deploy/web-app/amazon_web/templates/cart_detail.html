@@ -1,0 +1,279 @@
+{% extends "base.html" %}
+{% block content %}
+{% if bought %}
+<div class="container" class="bg-light">
+    <main>
+        <div class="row g-5">
+            <div class="col-md-5 col-lg-4 order-md-last">
+              <h4 class="d-flex justify-content-between align-items-center mb-3">
+                <span class="text-primary"> Order List </span>
+                <!-- <span class="badge bg-primary rounded-pill"> </span> -->
+              </h4>
+              {% for order in orders %}
+              <ul class="list-group mb-3">
+                <li class="list-group-item d-flex justify-content-between lh-sm lh-sm list-group-item-dark">
+                  <div>
+                    <h6 class="my-0">Product name</h6>
+                    <!-- <small class="text-muted">{{product.name}}</small> -->
+                  </div>
+                  <span class="text-muted">{{order.product.name}}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between lh-sm">
+                    <div>
+                      <h6 class="my-0">order id</h6>
+                      <!-- <small class="text-muted">{{product.name}}</small> -->
+                    </div>
+                    <span class="text-muted">{{order.packege_id}}</span>
+                  </li>
+                <li class="list-group-item d-flex justify-content-between lh-sm">
+                  <div>
+                    <h6 class="my-0">Brief description</h6>
+                    <small class="text-muted"> {{order.product.description}}</small>
+                  </div>
+                  <!-- <span class="text-muted">{{order.product.description}}</span> -->
+                </li>
+                <li class="list-group-item d-flex justify-content-between lh-sm">
+                    <div>
+                      <h6 class="my-0">Order status</h6>
+                      <!-- <small class="text-muted"> {{product.description}}</small> -->
+                    </div>
+                    <span class="text-muted">{{order.status}}</span>
+                  </li>
+                <li class="list-group-item d-flex justify-content-between lh-sm">
+                  <div>
+                    <h6 class="my-0">amounts</h6>
+                    <!-- <small class="text-muted">{{product.amounts}}</small> -->
+                  </div>
+                  <span class="text-muted">{{order.amounts}}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between lh-sm">
+                    <div>
+                      <h6 class="my-0">Price</h6>
+                      <!-- <small class="text-muted"></small> -->
+                    </div>
+                    <span class="text-muted">${{order.price}}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between lh-sm">
+                    <div>
+                      <h6 class="my-0">destination</h6>
+                      <!-- <small class="text-muted"></small> -->
+                    </div>
+                    <span class="text-muted">({{order.destination_x}},{{order.destination_y}})</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between lh-sm">
+                    <div>
+                      <h6 class="my-0">Ups account</h6>
+                      <!-- <small class="text-muted"></small> -->
+                    </div>
+                    <span class="text-muted">{{order.ups}}</span>
+                </li>
+               
+
+              </ul>
+              {% endfor %}
+            <a href="{% url 'listAllProducts'%}" class="btn btn-secondary my-2">Go Back to Homepage</a>
+
+            </div>
+            <a href="{% url 'listAllProducts'%}" class="btn btn-secondary my-2">Go Back to Homepage</a>
+    </main>
+
+</div>
+
+
+{% else %}
+<div class="container">
+    <main>
+      <div class="py-5 text-center">
+        <h2>Checkout form</h2>
+      </div>
+  
+      <div class="row g-5">
+        <div class="col-md-5 col-lg-4 order-md-last">
+          <h4 class="d-flex justify-content-between align-items-center mb-3">
+            <span class="text-primary">Your cart</span>
+          </h4>
+          {% for order in orders %}
+          <ul class="list-group mb-3">
+
+            <li class="list-group-item d-flex justify-content-between lh-sm list-group-item-dark">
+                <div>
+                  <h6 class="my-0">Order id</h6>
+                </div>
+                <span class="text-muted">{{order.packege_id}}</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between lh-sm">
+            <div>
+                <h6 class="my-0">Product name</h6>
+            </div>
+            <span class="text-muted">{{order.product.name}}</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between lh-sm">
+              <div>
+                <h6 class="my-0">Brief description</h6>
+                <small class="text-muted"> {{order.product.description}}</small>
+
+              </div>
+              <!-- <span class="text-muted">{{order.product.description}}</span> -->
+            </li>
+            <li class="list-group-item d-flex justify-content-between lh-sm">
+              <div>
+                <h6 class="my-0">amounts</h6>
+              </div>
+              <span class="text-muted">{{order.amounts}}</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between lh-sm">
+                <div>
+                  <h6 class="my-0">Price</h6>
+                </div>
+                <span class="text-muted">${{order.product.price}}</span>
+            </li>
+            <a href="{% url 'cancelOrder' order.packege_id%}" class="btn btn-secondary my-2">Cancel</a> 
+          </ul>
+          {% endfor %}
+
+        </div>
+
+        <!-- billing information -->
+        <div class="col-md-7 col-lg-8">
+          <h4 class="mb-3">Billing address</h4>
+          <form action="{% url 'cart_detail'%}" method="post">
+            {% csrf_token %}
+            <div class="row g-3">
+              <div class="col-sm-6">
+                <label for="dest_x" class="form-label" >Destination_x</label>
+                <input class="form-control" type="number" name="dest_x" min="1" max="100" placeholder="" required>
+                <div class="invalid-feedback">
+                  Valid destination is required.
+                </div>
+              </div>
+  
+              <div class="col-sm-6">
+                <label for="dest_y" class="form-label">Destination_y</label>
+                <input class="form-control" type="number" name="dest_y" min="1" max="100" placeholder="" required>
+                <div class="invalid-feedback">
+                    Valid destination is required.
+                </div>
+              </div>
+  
+              <div class="col-12">
+                <label for="email" class="form-label">UPS account <span class="text-muted">(Optional)</span></label>
+                <input class="form-control" type="text" name="ups_account">
+              </div>
+            <h4 class="mb-3">Payment</h4>
+  
+            <div class="my-3">
+              <div class="form-check">
+                <input id="credit" name="paymentMethod" type="radio" class="form-check-input" checked required>
+                <label class="form-check-label" for="credit">Credit card</label>
+              </div>
+              <div class="form-check">
+                <input id="debit" name="paymentMethod" type="radio" class="form-check-input" required>
+                <label class="form-check-label" for="debit">Debit card</label>
+              </div>
+              <div class="form-check">
+                <input id="paypal" name="paymentMethod" type="radio" class="form-check-input" required>
+                <label class="form-check-label" for="paypal">PayPal</label>
+              </div>
+            </div>
+  
+            <div class="row gy-3">
+              <div class="col-md-6">
+                <label for="cc-number" class="form-label">Credit card number</label>
+                <input type="text" class="form-control" id="cc-number" placeholder="" required>
+                <div class="invalid-feedback">
+                  Credit card number is required
+                </div>
+              </div>
+            </div>
+  
+            <hr class="my-4">
+  
+            <button class="w-100 btn btn-primary btn-lg" type="submit" name="action" value="buy">Continue to checkout</button>
+          </form>
+          <a href="{% url 'clear_cart'%}" class= "btn btn-secondary my-2">Clear Shopping Cart</a>
+          <a href="{% url 'listAllProducts'%}" class="btn btn-secondary my-2">Go Back to Homepage</a>       
+        </div>
+      </div>
+    </main>
+  </div>
+  {% endif %}
+  
+  <script src="/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+
+  <script src="form-validation.js"></script>
+{% endblock content %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h1>This is your shopping cart</h1>
+
+{% if bought %}
+    <ul>
+        <li>owner: {{order.owner}}</li>
+        {% for order in orders %}
+        <div>
+            <ul>
+                <li>order id: {{order.packege_id}}</li>
+                <li>Name: {{order.product.name}}</li>
+                <li>Amounts: {{order.amounts}}</li>
+                <li>Price: {{order.price}}</li>
+                <li>order status: {{order.status}}</li>
+            </ul>
+
+        </div>
+        {% endfor %}
+        <li>destination:({{order.destination_x}},{{order.destination_y}})</li>
+        <li>ups_account: {{order.ups}}</li>
+    </ul>
+
+
+{% else %}
+    <form action="{% url 'cart_detail'%}" method="post">
+        {% csrf_token %}
+        {% for order in orders %}
+
+        <div>
+            <ul>
+                <li>order id: {{order.packege_id}}</li>
+                <li>Name: {{order.product.name}}</li>
+                <li>Amounts: {{order.amounts}}</li>
+                <li>Price: {{order.price}}</li>
+            </ul>
+        </div>
+
+        {% endfor %}
+        <ul>
+            <li>Destination: 
+                <input type="number" name="dest_x" min="1" max="100" placeholder="dest_x"class="form-control" required>
+                <input type="number" name="dest_y" min="1" max="100" placeholder="dest_y"class="form-control" required></li>
+            <li> payment information:
+                <input type="number" name="card_num" placeholder="card numner"class="form-control" required>
+            </li>
+            <li>UPS account(optional): <input type="number" name="ups_account" class="form-control"></li>
+            <button type="submit" name="action" value="buy">Buy them</button>
+        </ul>
+
+    </form>
+
+
+
+{% endif %}
+<div><a href="{% url 'clear_cart'%}">clear your shopping cart</a></div>
+<a href="{% url 'listAllProducts'%}">BUY MORE</a>
+

@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% block content %}
+  <!-- <body > -->
+    <div class="container" class="bg-light">
+        <main>
+            <div class="row g-5">
+                <div class="col-md-5 col-lg-4 order-md-last">
+                  <h4 class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="text-primary"> Product Detail </span>
+                    <!-- <span class="badge bg-primary rounded-pill"> </span> -->
+                  </h4>
+                  <ul class="list-group mb-3">
+                    <li class="list-group-item d-flex justify-content-between lh-sm">
+                      <div>
+                        <h6 class="my-0">Product name</h6>
+                        <!-- <small class="text-muted">{{product.name}}</small> -->
+                      </div>
+                      <span class="text-muted">{{product.name}}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between lh-sm">
+                      <div>
+                        <h6 class="my-0">Brief description</h6>
+                        <small class="text-muted"> {{product.description}}</small>
+                      </div>
+                      <!-- <span class="text-muted">{{product.description}}</span> -->
+                    </li>
+                    <!-- <li class="list-group-item d-flex justify-content-between lh-sm">
+                      <div>
+                        <h6 class="my-0">amounts</h6>
+                       
+                      </div>
+                      <span class="text-muted">{{product.amounts}}</span>
+                    </li> -->
+                    <li class="list-group-item d-flex justify-content-between lh-sm">
+                        <div>
+                          <h6 class="my-0">Price</h6>
+                          <!-- <small class="text-muted"></small> -->
+                        </div>
+                        <span class="text-muted">${{product.price}}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between lh-sm">
+                      <div>
+                        <h6 class="my-0">rate</h6>
+                        <!-- <small class="text-muted"></small> -->
+                      </div>
+                      <span class="text-muted">{{product.rate}}</span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between lh-sm">
+                    <div>
+                      <h6 class="my-0">amount of people who rated</h6>
+                      <!-- <small class="text-muted"></small> -->
+                    </div>
+                    <span class="text-muted">{{product.people_rate}}</span>
+                </li>
+
+
+
+                  </ul>
+                  <form class="card p-2"  action="{% url 'product_detail' product.id%}" method="post">
+                    {% csrf_token %}
+                    <div class="input-group">
+                      <input type="number" name="rate" class="form-control" min = 1 max=5  required>
+                    </div>
+                    <button type="submit" name="action" value="rate" class="btn btn-secondary">Rate the product</button>                    
+                  </form>
+
+                  <form class="card p-2"  action="{% url 'product_detail' product.id%}" method="post">
+                    {% csrf_token %}
+                
+                    <div class="input-group">
+                      <input type="number" name="amount" class="form-control" placeholder="Purchase Amount" required>
+                    </div>
+                    <button type="submit" name="action" value="buy" class="btn btn-secondary">Buy it</button>
+                    <button type="submit" name="action" value="add_to_cart" class="btn btn-secondary">Add to shoppingcart</button>
+                    
+                  </form>
+                <a href="{% url 'listAllProducts'%}" class="btn btn-secondary my-2">Go Back to Homepage</a>
+
+                </div>
+                <a href="{% url 'listAllProducts'%}" class="btn btn-secondary my-2">Go Back to Homepage</a>
+        </main>
+
+        <footer class="my-5 pt-5 text-muted text-center text-small">
+            <p class="mb-1">&copy; 2017–2021 Company Name</p>
+        </footer>
+    </div>
+
+
+    <script src="/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+
+    <script src="form-validation.js"></script>
+  {% endblock content %}
+
+
+<!-- <h1>Details for product</h1>
+
+<form action="{% url 'product_detail' product.id%}" method="post">
+    {% csrf_token %}
+    <ul>
+        <li>Name: {{product.name}}</li>
+        <li>Description: {{product.description}}</li>
+        <li>Amounts: {{product.amounts}}</li>
+        <li>Price: {{product.price}}</li>
+        <li> how many do you wanna buy: <input type="number"  min="1" max="1000" class="form-control" required></li>
+
+        <button type="submit" name="action" value="buy">Buy it</button>
+        <button type="submit" name="action" value="add_to_cart">Add to shoppingcart</button>
+    </ul>
+
+</form> -->
+
+
+
+        <!-- <li>Destination: <input type="number" name="dest_x" min="1" max="100" placeholder="dest_x"class="form-control" required>
+            <input type="number" name="dest_y" min="1" max="100" placeholder="dest_y"class="form-control" required></li>
+        <li> payment information:
+            <input type="number" name="card_num" placeholder="card numner"class="form-control" required>
+        </li>
+        <li>UPS account(optional): <input type="number" name="ups_account" class="form-control"></li> -->

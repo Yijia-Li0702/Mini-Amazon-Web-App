@@ -1,0 +1,47 @@
+4.3
+Our group held a meeting to discuss our thoughts about this project and list a To-do list.
+We divided this project into  two part frontend and backend and decided who was responsible which part.
+
+4.4
+We began to design frontend pages and relative logism. We also created models and attributes.
+
+4.6
+We finished login and logout page and relative logism. We found that register page was not availbale. We research django 
+authentication system, design and implement register function.
+
+4.9
+We finished most front end pages, including dashboard, checkout form and product list page. We implement most part of 
+basic functionality.
+
+4.12
+We finished basic functionality of front end page.
+
+4.15
+We added more new functionality into this project, including sending emails, adding shopping cart etc.
+At first, we can't get the authentication to send email to others, and then we fixed this issue.
+
+4.17
+We deigned a more user-friendly UI and learned more UI design skills. We learned to use css to render our page.
+
+4.20
+We add delete order and clear shopping cart functionality. We designed a google protocal to communicate between front and 
+back end and learned how to use socket communication in python. At first we can't download google module corrrectly.
+Then we fixed this issue.
+
+4.21
+We deployed docker, connected with ups and fixed several bugs.
+
+4.22
+We completed differentiation document.
+
+4.23
+We met the error of world sending "finished:true" and make the pipe broken. The solution we used is that we define a variable 
+finished to record if current connection with world is still on. If the connection is closed, we block all the threads that are 
+sending information to world so that writing failure error will not exist.
+I think the reason that when flakiness raises and the possibility we receive "finished:true" higher is that they have higher possibility
+dropping the packet and thus the time they receive between two packet is too long that they disconnect with us.
+So we tried to set the frequency of resending command higher so that the dalay of world receiving command is shorter.
+The policy we use to solve the resend problem is we use a blocking queue and concurrent hashmap, which both are thread-safe data structure.
+Every time we send a command, we put it first in the map and then in the queue. The reason we put it in the map is that we want to find 
+the entry as quick as possible and we use a thread to continuously iterate the item pop from the queue. Only if curr item pop out of queue
+is also in the map will we resend it.
