@@ -2,4 +2,7 @@
 .DS_Store
 .classpath
 .project
+__pycache__
+__init__.py
+__init__.pyc
 .settings
